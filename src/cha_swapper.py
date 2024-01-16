@@ -1,12 +1,12 @@
-from utils.setup import setup_filesystem, get_cha_files
-from utils.swapper import swap_file
+from src.utils.setup import setup_filesystem, get_cha_files
+from src.utils.swapper import swap_file
 
 
 def main():
     try:
         setup_filesystem()
     except:
-        print("Created input folder, please and .cha files to be swapped.")
+        print("Created input folder, please add .cha files to be swapped")
         input("Press enter to exit...")
         exit(0)
 
