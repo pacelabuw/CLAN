@@ -37,7 +37,9 @@ def test_setup_filesystem_with_dirs(tmp_path: Path, monkeypatch: pytest.MonkeyPa
 
 
 def test_get_cha_files_no_files(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
-    monkeypatch.setattr(Path, "cwd", Mock(return_value=tmp_path))
+    monkeypatch.chdir(tmp_path)
+    os.mkdir("input")
+    
     result = get_cha_files()
     assert len(result) == 0
 
