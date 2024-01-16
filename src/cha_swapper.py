@@ -1,5 +1,5 @@
-from lib.setup import setup_filesystem, get_cha_files
-from lib.swapper import swap_file
+from utils.setup import setup_filesystem, get_cha_files
+from utils.swapper import swap_file
 
 
 def main():

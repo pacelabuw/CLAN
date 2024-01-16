@@ -3,8 +3,8 @@ import pytest
 from pathlib import Path
 from unittest.mock import Mock
 
-from src.lib.constants import INPUT_DIR, OUTPUT_DIR
-from src.lib.setup import setup_filesystem, get_cha_files
+from src.utils.constants import INPUT_DIR, OUTPUT_DIR
+from src.utils.setup import setup_filesystem, get_cha_files
 
 
 def test_setup_filesystem_no_dirs(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):

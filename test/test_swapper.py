@@ -1,6 +1,6 @@
 import pytest
 
-from src.lib.swapper import get_languages, swap_header, swap_utterance
+from src.utils.swapper import get_languages, swap_header, swap_utterance
 
 
 @pytest.mark.parametrize(
