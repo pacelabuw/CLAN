@@ -87,7 +87,8 @@ def swap_utterance(line: str, primary_language: str, secondary_language: str) ->
     is_all_ignored_symbols = True
 
     # If we find the secondary language tag, remove it.
-    if utterances[0] == f"[-{secondary_language}]":
+    if utterances[1] == f"{secondary_language}]":
+        utterances.pop(0)
         utterances.pop(0)
         is_secondary = True
     
@@ -102,7 +103,7 @@ def swap_utterance(line: str, primary_language: str, secondary_language: str) ->
 
         # Check if we should ignore this for code switching
         for ignored_symbol in IGNORE_STARTS_WITH:
-            if utterance.startswith(ignored_symbol):
+            if not utterance or utterance.startswith(ignored_symbol):
                 is_utterance_ignored = True
                 break
 
@@ -124,7 +125,7 @@ def swap_utterance(line: str, primary_language: str, secondary_language: str) ->
 
     # Add secondary tag if needed.
     if not (is_code_switched or is_secondary or is_all_ignored_symbols):
-        swapped_utterances.insert(0, f"[-{primary_language}]")
+        swapped_utterances.insert(0, f"[- {primary_language}]")
 
     # Rebuild the utterance
     return f"{speaker}\t{' '.join(swapped_utterances)} {utterances[-1]}"

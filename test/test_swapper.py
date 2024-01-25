@@ -62,15 +62,19 @@ def test_get_languages_with_error(input: str):
 @pytest.mark.parametrize(
     "input, expected_output",
     [
-        ("*MOT:	a ver dime que es . 0_2357", "*MOT:	[-spa] a ver dime que es . 0_2357"),
+        ("*MOT:	a ver dime que es . 0_2357", "*MOT:	[- spa] a ver dime que es . 0_2357"),
         (
-            "*MOT:	[-eng] have you seen my duckling ? 7767_9766",
+            "*MOT:	[- eng] have you seen my duckling ? 7767_9766",
             "*MOT:	have you seen my duckling ? 7767_9766"
         ),
         ("*CHI:	xxx . 2357_4934", "*CHI:	xxx . 2357_4934"),
         (
-            "*CHI:	hay [?] una butterfly@s . 23360_25615",
-            "*CHI:	hay@s [?] una@s butterfly . 23360_25615"
+            "*CHI:	hay [?] una butterfly@s .  23360_25615",
+            "*CHI:	hay@s [?] una@s butterfly .  23360_25615"
+        ),
+        (
+            "*CHI:	has visto mi patito ?  23360_25615",
+            "*CHI:	[- spa] has visto mi patito ?  23360_25615"
         ),
         (
             "*MOT:	<have@s you@s seen@s my@s> [//] has visto mi patito ? 107473_111550",
@@ -78,7 +82,7 @@ def test_get_languages_with_error(input: str):
         ),
         (
             "*MOT:	<mira y aquí hay una> [//] quién esta acá ? 182095_182816",
-            "*MOT:	[-spa] <mira y aquí hay una> [//] quién esta acá ? 182095_182816"
+            "*MOT:	[- spa] <mira y aquí hay una> [//] quién esta acá ? 182095_182816"
         ),
         (
             "*MOT:	<circle@s esta> [//] el círculo está arriba 382462_384617",
