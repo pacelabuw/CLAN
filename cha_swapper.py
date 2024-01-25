@@ -1,5 +1,5 @@
-from src.utils.setup import setup_filesystem, get_cha_files
-from src.utils.swapper import swap_file
+from src.setup import setup_filesystem, get_cha_files
+from src.swapper import swap_file
 
 
 def main():
@@ -13,7 +13,12 @@ def main():
     files = get_cha_files()
 
     for file in files:
-        swap_file(file)
+        try:
+            swap_file(file)
+        except Exception as e:
+            print(f"Error swapping file {file}")
+            print(f"Message: {e}")
+        print()
 
     input("Press enter to exit...")
 

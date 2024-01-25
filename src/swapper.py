@@ -33,7 +33,6 @@ def swap_file(file: str) -> None:
 
     with open(f"{OUTPUT_DIR}/{output_filename}", "w") as f:
         f.writelines(swapped_output)
-    print()
 
 
 def get_languages(line: str) -> list[str]:
