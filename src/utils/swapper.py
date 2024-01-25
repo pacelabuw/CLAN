@@ -61,7 +61,7 @@ def swap_header(line: str) -> str:
         primary_language, secondary_language = [l.strip() for l in split_data[0].split(",")]
         split_data[0] = f"{secondary_language}, {primary_language}"
         return f"{tag}\t{'|'.join(split_data)}"
-    elif line.startswith("@Languages"):
+    elif line.startswith(LANGUAGE_TAG):
         tag = line.split("\t")[0]
         primary_language, secondary_language = get_languages(line)
         return f"{tag}\t{secondary_language}, {primary_language}\n"
