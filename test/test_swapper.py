@@ -9,7 +9,7 @@ from src.utils.swapper import get_languages, swap_header, swap_utterance
         ("@UTF8", "@UTF8"),
         ("@Window:	0_0_0_0_0_0_280_0_280_0", "@Window:	0_0_0_0_0_0_280_0_280_0"),
         ("@Begin", "@Begin"),
-        ("@Languages:	spa, eng", "@Languages:	eng, spa"),
+        ("@Languages:	spa, eng", "@Languages:	eng, spa\n"),
         (
             "@Participants: CHI Target_Child, MOT Mother",
             "@Participants: CHI Target_Child, MOT Mother"
