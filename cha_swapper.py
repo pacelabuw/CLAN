@@ -16,8 +16,7 @@ def main():
         try:
             swap_file(file)
         except Exception as e:
-            print(f"Error swapping file {file}")
-            print(f"Message: {e}")
+            print(f"Error: {e}")
         print()
 
     input("Press enter to exit...")
