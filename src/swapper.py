@@ -1,31 +1,48 @@
-from .constants import IGNORE_STARTS_WITH, INPUT_DIR, LANGUAGE_TAG, OUTPUT_DIR
+from .constants import (
+    EXPLANATION_TAG,
+    IGNORE_STARTS_WITH,
+    INPUT_DIR,
+    LANGUAGE_TAG,
+    MEDIA_TAG,
+    OUTPUT_DIR,
+)
 
 
 def swap_file(file: str) -> None:
     """Take a file and perform the swaps, output to a new file."""
     print(F"Swapping file {file}")
     swapped_output = []
-    primary_language = None
-    secondary_language = None
     with open(f"{INPUT_DIR}/{file}") as f:
-        for line in f.readlines():
-            if line.startswith("@"):
-                if line.startswith(LANGUAGE_TAG):
-                    primary_language, secondary_language = get_languages(line)
-                swapped_output.append(swap_header(line))
-            else:
-                if primary_language is None or secondary_language is None:
-                    raise Exception(
-                        "Could not find language header, "
-                        f"please ensure {LANGUAGE_TAG} is in headers."
-                    )
-                swapped_output.append(
-                    swap_utterance(
-                        line,
-                        primary_language=primary_language,
-                        secondary_language=secondary_language,
-                    )
+        lines = f.readlines()
+
+    language_lines = [s for s in lines if s.startswith(LANGUAGE_TAG)]
+    if len(language_lines) == 1:
+        primary_language, secondary_language = get_languages(language_lines[0])
+        print(primary_language, secondary_language)
+    elif len(language_lines) > 1:
+        raise Exception(
+            "Found multiple language headers, "
+            f"please ensure only 1 {LANGUAGE_TAG} is in headers."
+        )
+    else:
+        raise Exception(
+            "Could not find language header, "
+            f"please ensure {LANGUAGE_TAG} is in headers."
+        )
+    
+    for line in lines:
+        if line.startswith("@"):
+            swapped_output.append(swap_header(line, secondary_language))
+        elif line.startswith(EXPLANATION_TAG):
+            swapped_output.append(line)
+        else:
+            swapped_output.append(
+                swap_utterance(
+                    line,
+                    primary_language=primary_language,
+                    secondary_language=secondary_language,
                 )
+            )
 
     print(f"Found primary language {primary_language} and secondary language {secondary_language}")
     output_filename = f"{file.lower().split('.cha')[0]}_{secondary_language}.cha"
@@ -52,7 +69,7 @@ def get_languages(line: str) -> list[str]:
     return languages
 
 
-def swap_header(line: str) -> str:
+def swap_header(line: str, secondary_language: str) -> str:
     """Swaps languages in headers, otherwise passes back the original header."""
     if line.startswith("@ID"):
         tag, data = line.split("\t")
@@ -64,6 +81,10 @@ def swap_header(line: str) -> str:
         tag = line.split("\t")[0]
         primary_language, secondary_language = get_languages(line)
         return f"{tag}\t{secondary_language}, {primary_language}\n"
+    elif line.startswith(MEDIA_TAG):
+        tag, data = line.split("\t")
+        filename, filetype = [d.strip() for d in data.split(",")]
+        return f"{tag}\t{filename}_{secondary_language}, {filetype}\n"
     return line
 
 

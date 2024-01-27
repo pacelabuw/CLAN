@@ -22,12 +22,12 @@ from src.swapper import get_languages, swap_header, swap_utterance
             "@ID:	spa, eng|bwl|MOT|||3bagstask||Mother|||",
             "@ID:	eng, spa|bwl|MOT|||3bagstask||Mother|||"
         ),
-        ("@Media:	BWL_2002_3Bags_iPad, video", "@Media:	BWL_2002_3Bags_iPad, video"),
+        ("@Media:	test, video", "@Media:	test_eng, video\n"),
         ("@Transcriber:	test", "@Transcriber:	test"),
     ],
 )
 def test_swap_header(input: str, expected_output: str):
-    result = swap_header(input)
+    result = swap_header(input, "eng")
 
     assert result == expected_output
 
