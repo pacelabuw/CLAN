@@ -101,6 +101,7 @@ def swap_utterance(line: str, primary_language: str, secondary_language: str) ->
     """
     speaker, utterances_str = line.split("\t")
     utterances = utterances_str.split(" ")
+    timestamp = utterances.pop()
     swapped_utterances = []
     is_code_switched = False
     is_secondary = False
@@ -113,12 +114,12 @@ def swap_utterance(line: str, primary_language: str, secondary_language: str) ->
         is_secondary = True
     
     # Determine if any words are marked as code switched.
-    for utterance in utterances[:-1]:   
+    for utterance in utterances:   
         if utterance.endswith("@s"):
             is_code_switched = True
 
     # Ignore timestamp at end.
-    for utterance in utterances[:-1]:
+    for utterance in utterances:
         is_utterance_ignored = False
 
         # Check if we should ignore this for code switching
@@ -148,4 +149,4 @@ def swap_utterance(line: str, primary_language: str, secondary_language: str) ->
         swapped_utterances.insert(0, f"[- {primary_language}]")
 
     # Rebuild the utterance
-    return f"{speaker}\t{' '.join(swapped_utterances)} {utterances[-1]}"
+    return f"{speaker}\t{' '.join(swapped_utterances)} {timestamp}"
