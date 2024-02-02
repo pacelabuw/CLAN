@@ -99,6 +99,9 @@ def swap_utterance(line: str, primary_language: str, secondary_language: str) ->
             be added as a tag at the beginning of utterance.
         - Lines with only symbols or special tags will be ignored.
     """
+    if "\t" not in line:
+        return line
+
     speaker, utterances_str = line.split("\t")
     utterances = utterances_str.split(" ")
     timestamp = utterances.pop()
