@@ -111,7 +111,7 @@ def swap_utterance(line: str, primary_language: str, secondary_language: str) ->
     is_all_ignored_symbols = True
 
     # If we find the secondary language tag, remove it.
-    if utterances[1] == f"{secondary_language}]":
+    if len(utterances) > 1 and utterances[1] == f"{secondary_language}]":
         utterances.pop(0)
         utterances.pop(0)
         is_secondary = True
