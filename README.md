@@ -29,4 +29,4 @@ The executable will be available in in the dist/ directory. An executable can on
 same OS it was generated with (ie Windows, Mac, Linux).
 
 ## How to cite (APA 7)
-Clayton, J. (2024). _CLAN language swapper_ (Version 1.0.2). Pacelab. https://github.com/pacelabuw/CLAN_language_swapper. 
+Clayton, J. (2024). _CLAN language swapper_ (Version 1.0.3). Pacelab. https://github.com/pacelabuw/CLAN_language_swapper. 
